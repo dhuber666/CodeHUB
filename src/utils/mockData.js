@@ -13,6 +13,11 @@ export default {
           title: "C#",
           description: "Microsoft's go to language",
           latestTopic: "Main geiles Topic alter"
+        },
+        2: {
+          title: "Python",
+          description: "A good language for begginers",
+          latestTopic: "Hi How are you guys?"
         }
       }
     },

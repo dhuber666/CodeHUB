@@ -50,15 +50,22 @@ class Forum extends React.Component {
 
     console.log(topics);
     if (topicGroups) {
-      return Object.entries(topicGroups).map(([groupKey, group]) =>
-        Object.entries(group.topics).map(([topicKey, topic]) => {
-          return (
-            <ForumTopicGroup title={group.title}>
-              <ForumTopic>{topic.title}</ForumTopic>
-            </ForumTopicGroup>
-          );
-        })
-      );
+      return Object.entries(topicGroups).map(([groupKey, group]) => {
+        return (
+          <ForumTopicGroup title={group.title}>
+            {Object.entries(group.topics).map(([topicKey, topic]) => {
+              return (
+                <ForumTopic
+                  latestTopic={topic.latestTopic}
+                  description={topic.description}
+                >
+                  {topic.title}
+                </ForumTopic>
+              );
+            })}
+          </ForumTopicGroup>
+        );
+      });
     }
   }
 

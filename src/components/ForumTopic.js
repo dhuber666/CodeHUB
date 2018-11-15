@@ -7,14 +7,12 @@ const styles = {
   }
 };
 
-const ForumTopic = ({ children, header, description }) => {
+const ForumTopic = ({ children, header, description, latestTopic }) => {
   return (
     <List.Item>
       <List.Content floated="right" style={styles.latestTopic}>
         <List.Header>Latest Topic:</List.Header>
-        <List.Description>
-          [Diskussion] Der ideale asdf Gaming-PC er ideale asdf Gamin(1...
-        </List.Description>
+        <List.Description>{latestTopic}</List.Description>
       </List.Content>
       <List.Icon color="teal" name="chat" size="large" verticalAlign="middle" />
       <List.Content>
