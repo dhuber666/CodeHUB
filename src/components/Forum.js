@@ -1,72 +1,25 @@
 import React, { Fragment } from "react";
-import _ from "lodash";
 
+import { connect } from "react-redux";
 import ForumTopicGroup from "./ForumTopicGroup";
-import ForumTopic from "./ForumTopic";
-
-import data from "../utils/mockData";
-
-/*
-
-    <ForumTopicGroup title="Languages">
-          <ForumTopic description="Everything about Vanilly JS">
-            Javacript
-          </ForumTopic>
-          <ForumTopic description="Microsoft's go to language">C#</ForumTopic>
-          <ForumTopic description="Python and it's economy">Python</ForumTopic>
-        </ForumTopicGroup>
-        <ForumTopicGroup title="Coding Partner Search">
-          <ForumTopic description="Everything about Vanilly JS">
-            Javacript
-          </ForumTopic>
-          <ForumTopic description="Microsoft's go to language">C#</ForumTopic>
-          <ForumTopic description="Python and it's economy">Python</ForumTopic>
-        </ForumTopicGroup>
-
-*/
+import { fetchTopicGroups } from "../actions";
 
 class Forum extends React.Component {
-  state = {
-    topicGroups: null
-  };
-
   componentDidMount() {
-    this.setState({
-      topicGroups: data.topicGroups,
-      topics: data.topics
-    });
+    const { dispatch } = this.props;
+    dispatch(fetchTopicGroups());
   }
 
-  /*
-  <ForumTopicGroup title={topicGroup.title}>
-            <ForumTopic>{topic.title}</ForumTopic>
-          </ForumTopicGroup> */
-
   renderTopicGroups() {
-    const { topicGroups, topics } = this.state;
+    const { topicGroups } = this.props;
 
-    const groups = _.values(topicGroups);
-    const topicsValues = _.values(topics);
-
-    console.log(topics);
-    if (topicGroups) {
-      return Object.entries(topicGroups).map(([groupKey, group]) => {
-        return (
-          <ForumTopicGroup title={group.title}>
-            {Object.entries(group.topics).map(([topicKey, topic]) => {
-              return (
-                <ForumTopic
-                  latestTopic={topic.latestTopic}
-                  description={topic.description}
-                >
-                  {topic.title}
-                </ForumTopic>
-              );
-            })}
-          </ForumTopicGroup>
-        );
-      });
-    }
+    return topicGroups.map(topicGroup => (
+      <ForumTopicGroup
+        key={topicGroup._id}
+        title={topicGroup.title}
+        subTitle={topicGroup.subTitle}
+      />
+    ));
   }
 
   render() {
@@ -74,4 +27,11 @@ class Forum extends React.Component {
   }
 }
 
-export default Forum;
+const mapStateToProps = state => {
+  return { topicGroups: state.topicGroups };
+};
+
+export default connect(
+  mapStateToProps,
+  null
+)(Forum);

@@ -1,19 +1,22 @@
 import React from "react";
 import { Fragment } from "react";
 import Navbar from "./Navbar";
+import { BrowserRouter as Router } from "react-router-dom";
 
 import { Container } from "semantic-ui-react";
-import Forum from "./Forum";
+import Routes from "../routes";
 
 class App extends React.Component {
   render() {
     return (
-      <Fragment>
-        <Navbar />
-        <Container>
-          <Forum />
-        </Container>
-      </Fragment>
+      <Router>
+        <Fragment>
+          <Navbar />
+          <Container>
+            <Routes />
+          </Container>
+        </Fragment>
+      </Router>
     );
   }
 }
