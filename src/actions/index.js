@@ -48,11 +48,21 @@ export const createTopic = (topicGroupId, title, subTitle) => {
     axios
       .post("http://localhost:3001/createTopic", newTopic)
       .then(({ data }) => {
-        console.log(data);
         return dispatch({
           type: "NEW_TOPIC",
           payload: data
         });
       });
+  };
+};
+
+export const fetchTopics = () => {
+  return dispatch => {
+    axios.get("http://localhost:3001/fetchTopics").then(({ data }) => {
+      dispatch({
+        type: "FETCH_TOPICS",
+        payload: data
+      });
+    });
   };
 };

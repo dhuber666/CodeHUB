@@ -9,10 +9,9 @@ import { Field, reduxForm } from "redux-form";
 import { Form, Button } from "semantic-ui-react";
 import InputField from "../CustomField";
 
-const CreateTopics = ({ handleSubmit, dispatch }) => {
-  const submitTopic = props => {
-    console.log(props);
-    // dispatch(createTopic(test, topicTitle, topicSubTitle));
+const CreateTopics = ({ handleSubmit, dispatch, topicGroups }) => {
+  const submitTopic = ({ topicGroupId, topicTitle, topicSubTitle }) => {
+    dispatch(createTopic(topicGroupId, topicTitle, topicSubTitle));
   };
 
   return (
@@ -30,13 +29,17 @@ const CreateTopics = ({ handleSubmit, dispatch }) => {
         placeholder="e.g. Everything about JS or C#"
       />
       <label>Chose a related Topic Group</label>
-      <Field name="test" component="select">
-        {/* {topicGroups.map(topicGroup => {
-            console.log(topicGroup._id);
-            return <option value={topicGroup._id}>{topicGroup.title}</option>;
-          })} */}
-        <option value="test">test</option>
+      <Field name="topicGroupId" component="select">
+        <option value="" />
+        {topicGroups.map(topicGroup => {
+          return (
+            <option key={topicGroup._id} value={topicGroup._id}>
+              {topicGroup.title}
+            </option>
+          );
+        })}
       </Field>
+
       <Form.Field control={Button} primary type="submit">
         Create Topic
       </Form.Field>

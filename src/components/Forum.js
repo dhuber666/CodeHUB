@@ -2,6 +2,7 @@ import React, { Fragment } from "react";
 
 import { connect } from "react-redux";
 import ForumTopicGroup from "./ForumTopicGroup";
+import ForumTopic from "./ForumTopic";
 import { fetchTopicGroups } from "../actions";
 
 class Forum extends React.Component {
@@ -13,13 +14,23 @@ class Forum extends React.Component {
   renderTopicGroups() {
     const { topicGroups } = this.props;
 
-    return topicGroups.map(topicGroup => (
-      <ForumTopicGroup
-        key={topicGroup._id}
-        title={topicGroup.title}
-        subTitle={topicGroup.subTitle}
-      />
-    ));
+    return topicGroups.map(topicGroup => {
+      return (
+        <ForumTopicGroup key={topicGroup._id} title={topicGroup.title}>
+          {topicGroup.topics.map(topic => {
+            return (
+              <ForumTopic
+                key={topic._id}
+                subTitle={topic.subTitle}
+                id={topic._id}
+              >
+                {topic.title}
+              </ForumTopic>
+            );
+          })}
+        </ForumTopicGroup>
+      );
+    });
   }
 
   render() {

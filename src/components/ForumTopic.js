@@ -1,5 +1,6 @@
 import React from "react";
-import { List, Button } from "semantic-ui-react";
+import { List } from "semantic-ui-react";
+import { Link } from "react-router-dom";
 
 const styles = {
   latestTopic: {
@@ -7,17 +8,16 @@ const styles = {
   }
 };
 
-const ForumTopic = ({ children, header, description, latestTopic }) => {
+const ForumTopic = ({ children, subTitle, id }) => {
   return (
-    <List.Item>
-      <List.Content floated="right" style={styles.latestTopic}>
-        <List.Header>Latest Topic:</List.Header>
-        <List.Description>{latestTopic}</List.Description>
-      </List.Content>
+    <List.Item
+      as={Link}
+      to={{ pathname: `/detail/${id}`, query: { topicID: id } }}
+    >
       <List.Icon color="teal" name="chat" size="large" verticalAlign="middle" />
       <List.Content>
-        <List.Header as="a">{children}</List.Header>
-        <List.Description as="a">{description}</List.Description>
+        <List.Header>{children}</List.Header>
+        <List.Description>{subTitle}</List.Description>
       </List.Content>
     </List.Item>
   );
