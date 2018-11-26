@@ -66,3 +66,50 @@ export const fetchTopics = () => {
     });
   };
 };
+
+/* Posts */
+
+export const createPost = (topicID, title, content) => {
+  const newPost = {
+    id: topicID,
+    title,
+    content
+  };
+  return dispatch => {
+    axios.post("http://localhost:3001/createPost", newPost).then(({ data }) => {
+      return dispatch({
+        type: "NEW_POST",
+        payload: data
+      });
+    });
+  };
+};
+
+export const fetchPosts = () => {
+  return dispatch => {
+    axios.get("http://localhost:3001/fetchPosts").then(({ data }) => {
+      dispatch({
+        type: "FETCH_POSTS",
+        payload: data
+      });
+    });
+  };
+};
+
+export const fetchPostsWithTopicID = topicID => {
+  const params = {
+    topicID
+  };
+
+  return dispatch => {
+    console.log("hello from action. topicID: ", topicID);
+    axios
+      .get("http://localhost:3001/fetchPostsWithTopicID", { params })
+      .then(({ data }) => {
+        dispatch({
+          type: "FETCH_POSTS_WITH_TOPIC_ID",
+          payload: data
+        });
+      });
+  };
+};
